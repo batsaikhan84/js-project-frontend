@@ -1,216 +1,123 @@
-const BASE_URL = "http://localhost:3000"
-const USER_URL = `${BASE_URL}/users`
+const BASE_URL = "https://batsaikhan-js-project-backend.herokuapp.com"
+const USERS_URL = `${BASE_URL}/users`
 const INCOME_URL = `${BASE_URL}/incomes`
 const EXPENSE_URL = `${BASE_URL}/expenses`
-const SIGNIN_URL = `${BASE_URL}/signin`
-const SIGNOUT_URL = `${BASE_URL}/signout`
-const CURRENT_USER_URL = `${BASE_URL}/current_user`
+const SELECTED_USER_URL = `http://localhost:3000/selected_user`
 
-let current_user = {}
-
-const displayFullName = (obj) => {
-    let navbarSection = document.getElementById('navbarSection')
-    let h3 = document.createElement('h3')
-    h3.innerText = `Welcome ${obj.firstName} ${obj.lastName}`
-    navbarSection.appendChild(h3)
-}
-const userSignedIn = (obj) => {
-    displayFullName(obj)
-    current_user = obj
-    signinFormSH = document.getElementById('signinForm').style.display='none'
-    signoutButtonSH = document.getElementById('signoutButtonSH').style.display='block'
-    signupFormSH = document.getElementById('signupForm').style.display='none'
-    signupButtonSH = document.getElementById('signupButtonSH').style.display='none'
-}
-const userSignedOut = () => {
-    signinFormSH = document.getElementById('signinForm').style.display='block'
-    signupButtonSH = document.getElementById('signupButtonSH').style.display='block'
-    signoutButtonSH = document.getElementById('signoutButtonSH').style.display='none'
-    signupFormSH = document.getElementById('signupForm').style.display='none'
-    document.querySelector('section').innerText=''
-    document.getElementById('cardBody3').innerHTML = ''
-    document.getElementById('filterResult').innerHTML=''
-    document.getElementById('signinForm').reset()
-    current_user = {}
-}
-const userSignin = (event) => {
-    event.preventDefault();
-    let formData = {
-        email: document.getElementById('signinEmail').value,
-        password: document.getElementById('signinPassword').value
-    }
-    let configObj = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    }
-    fetch(SIGNIN_URL, configObj)
+const fetchUsers = () => {
+    fetch('http://localhost:3000/users')
     .then(response => response.json())
     .then(obj => {
-        console.log(obj)
-        if (obj.id !== undefined) {
-            userSignedIn(obj)
-            }
+        userPropSelect = document.getElementById('userPropSelect')
+        for (const userProperty in obj) {
+            option = document.createElement('option')
+            option.text = `${obj[userProperty].first_name} ${obj[userProperty].last_name}`
+            option.value = `${obj[userProperty].id}`
+            userPropSelect.add(option)
+        } 
     })
 }
-const clickSignUpButton = (event) => {
-    event.preventDefault();
-    signupFormSH = document.getElementById('signupForm').style.display='block'
-    signupButtonSH = document.getElementById('signupButtonSH').style.display='none'
+
+fetchUsers()
+
+const createUserHeader= (obj) => {
+    let header = document.querySelector('header')
+    let h3 = document.createElement('h3')
+    if (obj['message'] === 'user clear') {
+        h3.innerHTML = 'No User Selected'
+        header.appendChild(h3)
+    } else {
+        h3.innerHTML = `${obj.first_name} ${obj.last_name}`
+        header.appendChild(h3)
+    }
 }
 
-class CreateUser {
-    constructor(url) {
-        this.url = url
-        this.formData = {
-            email: document.getElementById('signupEmail').value,
-            password: document.getElementById('signupPassword').value,
-            firstName: document.getElementById('firstName').value,
-            lastName: document.getElementById('lastName').value,
-            gender: this.gender(),
-            age: document.getElementById('age').value
+const displayUser = () => {
+    fetch('http://localhost:3000/selected_user')
+    .then(response => response.json())
+    .then(obj => createUserHeader(obj))
+}
+displayUser()
+
+const userOptionSelector = (event) => {
+    let selection = document.getElementById('userPropSelect')
+    for (const option of selection) {
+        if (option.selected) {
+            if (option.value === '0') {
+                alert("Please select user")
+            } else {
+                let formData = {
+                    id: option.value
+                }
+                let configObj = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                }
+                fetch('http://localhost:3000/select', configObj)
+                .then(response => response.json())
+                .then(obj => {
+                    createUserHeader(obj)
+                })
             }
-        this.configObj = {
+        } 
+    }
+}
+
+const clearUserInfor = (event) => {
+    fetch('http://localhost:3000/clear')
+    .then(response => response.json())
+    .then(obj => createUserHeader(obj))
+}
+
+const userSubmit = document.getElementById('userSubmit')
+userSubmit.addEventListener('click', userOptionSelector)
+
+const userClear = document.getElementById('userClear')
+userClear.addEventListener('click', clearUserInfor)
+
+const createIncome = () => {
+    let user_id
+    fetch('http://localhost:3000/selected_user')
+    .then(response => response.json())
+    .then(obj => {
+        if (obj['message'] === 'user clear') {
+            alert('Please select user before submiting income')
+        } else {
+            user_id = obj.id
+            let formData = {
+                name: document.getElementById('incomeName').value,
+                amount: document.getElementById('incomeAmount').value,
+                date: document.getElementById('incomeDate').value,
+                isSupplement: document.querySelector("input[value='true']").value,
+                user_id: user_id
+            }
+            let configObj = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                    },
-                body: JSON.stringify(this.formData)
+                },
+                body: JSON.stringify(formData)
             }
-        }
-    fetch() {
-        fetch(this.url, this.configObj)
-        .then(response => response.json())
-        .then(obj => { console.log(obj)
-        if (obj.message === undefined) {
-            displayFullName(obj)
-            signinFormSH = document.getElementById('signinForm').style.display='none'
-            signupButtonSH = document.getElementById('signupButtonSH').style.display='none'
-            signoutButtonSH = document.getElementById('signoutButtonSH').style.display='block'
-            signupFormSH = document.getElementById('signupForm').style.display='none'
-            }
-        })
-    }
-    gender() {
-        let gender = document.getElementsByName('gender')
-            for (let i=0; i<gender.length; i++ ) {
-                if (gender[i].checked) {
-                    return gender[i].value
+            fetch('http://localhost:3000/incomes', configObj)
+            .then(response => response.json())
+            .then(obj => {
+                if (typeof obj !== 'undefined') {
+                    document.querySelector('.incomeFormCard').reset()
                 }
-            }
-        }
-    }
-const signupForm = document.getElementById('signupButton')
-signupForm.addEventListener('click', () => {
-    event.preventDefault()
-    let newUser = new CreateUser(USER_URL)
-    newUser.fetch()
-})
-
-// const userSignup = () => {
-//     event.preventDefault();
-//     const getGender = () => {
-//         let gender = document.getElementsByName('gender')
-//         for (let i=0; i<gender.length; i++ ) {
-//             if (gender[i].checked) {
-//                 console.log(gender[i].value)
-//                 return gender[i].value
-//             }
-//         }
-//     }
-//     let formData = {
-//         email: document.getElementById('signupEmail').value,
-//         password: document.getElementById('signupPassword').value,
-//         firstName: document.getElementById('firstName').value,
-//         lastName: document.getElementById('lastName').value,
-//         gender: getGender(),
-//         age: document.getElementById('age').value
-//     }
-//     let configObj = {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json'
-//         },
-//         body: JSON.stringify(formData)
-//     }
-//     fetch(USER_URL, configObj)
-//     .then(response => response.json())
-//     .then(obj => { console.log(obj)
-//         if (obj.message === undefined) {
-//             displayFullName(obj)
-//             signinFormSH = document.getElementById('signinForm').style.display='none'
-//             signupButtonSH = document.getElementById('signupButtonSH').style.display='none'
-//             signoutButtonSH = document.getElementById('signoutButtonSH').style.display='block'
-//             signupFormSH = document.getElementById('signupForm').style.display='none'
-//             }
-//     })
-// }
-const userSignout = (event) => {
-    event.preventDefault()
-    fetch(SIGNOUT_URL)
-    .then(response => response.json())
-    .then(response => {console.log(response)
-        userSignedOut()
-    })
-}
-const currentUser = () => {
-    fetch(CURRENT_USER_URL)
-    .then(response => response.json())
-    .then(obj => obj)
-}
-const displayCurrentUser = () => {
-    fetch(CURRENT_USER_URL)
-    .then(response => response.json())
-    .then(obj => {
-        if (obj.id !== undefined) {
-            userSignedIn(obj)
-        } else {
-            userSignedOut()
+            })
         }
     })
-}
-displayCurrentUser()
-const signinForm = document.getElementById('signinButton')
-signinForm.addEventListener('click', userSignin)
-const signupButton = document.getElementById('signupButtonSH')
-signupButton.addEventListener('click', clickSignUpButton)
-const signoutButton = document.getElementById('signoutButtonSH')
-signoutButton.addEventListener('click', userSignout)
-
-
-const createIncome = (event) => {
-    event.preventDefault()
-    let formData = {
-        name: document.getElementById('incomeName').value,
-        amount: document.getElementById('incomeAmount').value,
-        date: document.getElementById('incomeDate').value,
-        isSupplement: document.querySelector("input[value='true']").value,
-        user_id: current_user.id
-    }
-    let configObj = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    }
-    fetch(INCOME_URL, configObj)
-    .then(response => response.json())
-    .then(obj => {
-        console.log(obj)
-        if (typeof obj !== 'undefined') {
-            document.querySelector('.incomeFormCard').reset()
-        }
-    })
+ 
 }
 const incomeSubmit = document.getElementById('incomeSubmit')
 incomeSubmit.addEventListener('click', createIncome)
+
+
 
 const createExpense = (event) => {
     event.preventDefault()
@@ -230,32 +137,41 @@ const createExpense = (event) => {
             }
         }
     }
-    let formData = {
-        name: document.getElementById('expenseName').value,
-        amount: document.getElementById('expenseAmount').value,
-        category: category(),
-        date: document.getElementById('expenseDate').value,
-        note: document.getElementById('expenseNote').value,
-        paymentType: paymentType(),
-        user_id: current_user.id
-    }
-    let configObj = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    }
-    fetch(EXPENSE_URL, configObj)
+    let user_id
+    fetch('http://localhost:3000/selected_user')
     .then(response => response.json())
     .then(obj => {
-        console.log(obj)
-        if (typeof obj !== 'undefined') {
-            document.querySelector('.expenseFormCard').reset()
+        if (obj['message'] === 'user clear') {
+            alert('Please select user before submiting income')
+        } else {
+            let formData = {
+                name: document.getElementById('expenseName').value,
+                amount: document.getElementById('expenseAmount').value,
+                category: category(),
+                date: document.getElementById('expenseDate').value,
+                note: document.getElementById('expenseNote').value,
+                paymentType: paymentType(),
+                user_id: cuser_id
+            }
+            let configObj = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            }
+            fetch(EXPENSE_URL, configObj)
+            .then(response => response.json())
+            .then(obj => {
+                if (typeof obj !== 'undefined') {
+                    document.querySelector('.expenseFormCard').reset()
+                }
+            })
         }
-    })
+    }   
 }
+
 const expenseSubmit = document.getElementById('expenseSubmit')
 expenseSubmit.addEventListener('click', createExpense)
 

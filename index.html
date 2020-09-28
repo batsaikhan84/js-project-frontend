@@ -1,210 +1,100 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-header {
-    background-color: #6cf;
-    margin: 0 auto;
-    height: 100px;
-  }
-header h2 {
-    padding-top: 1%;
-    padding-left: 4%;
-    margin-top: 0;
-    font-size: 45px;
-    font-style: oblique;
-    color: #fefefe;
-    text-shadow: 2px 2px darkgray;
-  }
-body {
-    background: #fefefe;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-main {
-    width: 100%;
-    margin: 30px auto;
-}
-.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-flow: wrap;
-}
-.card {
-    width: 30%;
-    background: #fff;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    transition: 0.3s;
-}
-.card-header {
-    font-size: 12px;
-    text-align: center;
-    padding: 50px 10px;
-    background: linear-gradient(to right, #ff416c, #ff4b2b);
-    color: #fff;
-  }
-.card-body {
-    padding: 30px 20px;
-    /* text-align: center; */
-    font-size: 18px;
-}
-.card-body-income {
-    padding: 30px 20px;
-    text-align: center;
-    font-size: 18px;
-    border-bottom: 1px solid #ccc;
-}
-.card-body-expense {
-    padding: 30px 20px;
-    text-align: center;
-    font-size: 18px;
-}
-.formFields {
-    padding: 1%;
-}
-.formFieldsProp {
-    padding: 8px;
-    width: 60%;
-    border: 1px;
-    border-radius: 10px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.164);
-}
-.formSubmit {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width:60%;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-  }
-.navbar {
-    height: 60px;
-    width: 100%;
-    padding-top: 1%;
-    padding-left: 3%;
-    padding-right: 1%;
-    background-color: rgb(201, 219, 228);
-}
-section h3 {
-    color: white;
-    width: 30%;
-}
-.user-form {
-    padding: 8px;
-    width: 15%;
-    border: 1px;
-    border-radius: 0;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.164);
-}
-.form-button {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 10%;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-}
-#footer {
-    position: fixed;
-    padding-top: 1%;
-    padding-left: 3%;
-    margin: 0;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    background:#6cf;
-}
-#footer .signup-center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#signupButtonSH {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 150px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-}
-#signoutButtonSH {
-    margin: 0;
-    position: absolute;
-    top: 12.5%;
-    left: 90%;
-    transform: translate(-50%, -50%);
-}
-#signoutButtonSH {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 150px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-}
-#expenseFilterSubmit {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 80px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-}
-#expensePropSelect {
-    padding: 8px;
-    width: 60%;
-    border: 1px;
-    border-radius: 10px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.164);
-}
-.expenseDiv {
-    text-align: center;
-}
-#filterResult {
-    margin-top: 7%;
-    padding: 6% 6%;
-    width: 100%;
-    height: 500px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.164);
-    overflow: scroll;
-  }
-  .expenseSelection {
-    margin: 0;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf=8">
+        <title>Javascript Project</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    </head>
+    <body>
+        <header>
+            <h2>WELCOME TO MY JS PROJECT</h2>
+        </header>
+        <nav class="navbar">
+            <form class="userSelection">
+                <select id="userPropSelect" class="userPropSelect" name="userPropSelect">
+                    <option class="select" value='0'>Select User:</option>
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  li {
-    padding: 5px 8px;
-    color: rgb(59, 146, 175);
-    font-size: medium;
-    background-color: #EEEEEE;
-    border: 1px solid #d6c8c8;
-  }
-@media screen and (max-width: 1000px) {
-    .card {
-        width: 40%;
-    }
-    .card {
-        width: 90%;
-    }
-}
+                </select>
+                <button type="submit" id="userSubmit">Select</Select></button>
+                <button type="submit" id="userClear">Clear</Select></button>
+            </form>
+        </nav>
+   
+        <main>
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                       <h1>ENTRY FORM</h1>
+                    </div>
+                    <div class="card-body-income">
+                        <form class="incomeFormCard">
+                            <div class="formFields"><input type="text" name="incomeName" id="incomeName" class="formFieldsProp" placeholder="name"></div> 
+                            <div class="formFields"><input type="number" name="incomeAmount" id="incomeAmount" class="formFieldsProp" min="1" max="100" placeholder="amount"></div> 
+                            <div class="formFields"><input type="date" name="incomeDate" id="incomeDate" class="formFieldsProp" placeholder="date"></div> 
+                            <div class="formFields"><label for="isSupplement">Is this supplement income?</label> <input type="checkbox" name="isSupplement" id="isSupplement" value="true"></div> 
+                            <div class="formFields"><input type="submit" id="incomeSubmit" class="formSubmit" value="enter income"></div> 
+                        </form>
+                    </div>
+                    <div class="card-body-expense">
+                        <form class="expenseFormCard">
+                            <div class="formFields"><input type="text" name="expenseName" id="expenseName" class="formFieldsProp" placeholder="name"></div>
+                            <div class="formFields"><input type="number" name="expenseAmount" id="expenseAmount" class="formFieldsProp" min="1" max="100" placeholder="amount"></div>
+                            <div class="formFields"> <select class="formFieldsProp" id="expenseCategory">
+                                <option class="selectCategory" value="select">Select Category:</option>
+                                <option class="home" value="home">Home</option>
+                                <option class="food" value="food">Food</option>
+                                <option class="childcare" value="childcare">ChildCare</option>
+                                <option class="healthcare" value="healthcare">HealthCare</option>
+                                <option class="transportion" value="transportion">Transportation</option>
+                                <option class="personalCare" value="personalCare">Personal Care</option>
+                                <option class="petCare" value="petCare">PetCare</option>
+                                <option class="entertainment" value="entertainment">Entertainment</option>
+                            </select></div>
+                            <div class="formFields"><input type="date" name="expenseDate" id="expenseDate" class="formFieldsProp" placeholder="date"></div>
+                            <div class="formFields"><input type="text" name="expenseNote" id="expenseNote" class="formFieldsProp" placeholder="note"></div>
+                            <div class="formFields"> <label for="cash">Cash</label>
+                                <input type="radio" id="cash" name="paymentType" value="cash">
+                                <label for="creditCard">Credit Card</label>
+                                <input type="radio" id="creditCard" name="paymentType" value="creditCard"></div>
+                            <div class="formFields"><input type="submit" id="expenseSubmit" class="formSubmit" value="enter expense"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div id="cardBody1" class="card-header">
+                        <h1>DETAILS</h1>
+                    </div>
+                    <div id="cardBody2" class="card-body">
+                        <div class="expenseDiv"
+                            <form class="expenseSelection">
+                                <select id="expensePropSelect" name="expensePropSelect">
+                                    <option class="select" value='0'>Select Your Option:</option>
+                                    <option class="amount" value='amount'>Amount</option>
+                                    <option class="category" value='category'>Category</option>
+                                    <option class="date" value='date'>Date</option>
+                                </select>
+                                <button type="submit" id="expenseFilterSubmit">Submit</button>
+                            </form>
+                        </div>
+                        <div id="filterResult">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h1>VISUALIZATION</h1>
+                    </div>
+                    <div id="cardBody3" class="card-body">
+                        <canvas id="myChart">
+
+                        </canvas>
+                    </div>
+                </div>
+           </div>
+        </main>
+        
+        <script src="./src/index.js"></script>
+    </body>
+ </html>

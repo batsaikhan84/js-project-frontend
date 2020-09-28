@@ -6,17 +6,63 @@
 header {
     background-color: #6cf;
     margin: 0 auto;
-    height: 100px;
+    height: 80px;
   }
 header h2 {
-    padding-top: 1%;
+    float: left;
+    padding-top: 12px;
     padding-left: 4%;
     margin-top: 0;
     font-size: 45px;
-    font-style: oblique;
     color: #fefefe;
     text-shadow: 2px 2px darkgray;
   }
+  header h3 {
+    float: right;
+    padding-top: 1%;
+    padding-right: 4%;
+    margin-top: 0;
+    font-size: 35px;
+    color: #fefefe;
+    text-shadow: 2px 2px darkgray;
+  }
+nav {
+    height: 60px;
+    width: 100%;
+    background-color: rgb(201, 219, 228);
+}
+nav .userSelection {
+    float: right;
+    padding-top: 12px;
+    padding-right: 30px;
+}
+.userPropSelect {
+    padding: 8px;
+    width: 250px;
+    border: 1px;
+    border-radius: 0px;
+    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.164);
+}
+#userSubmit {
+    padding: 8px;
+    border:none;
+    background-color:#3F51B5;
+    color:#fff;
+    font-weight:600;
+    border-radius:5px;
+    width: 80px;
+    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
+}
+#userClear {
+    padding: 8px;
+    border:none;
+    background-color:#3F51B5;
+    color:#fff;
+    font-weight:600;
+    border-radius:5px;
+    width: 80px;
+    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
+}
 body {
     background: #fefefe;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -47,7 +93,6 @@ main {
   }
 .card-body {
     padding: 30px 20px;
-    /* text-align: center; */
     font-size: 18px;
 }
 .card-body-income {
@@ -81,78 +126,10 @@ main {
     width:60%;
     box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
   }
-.navbar {
-    height: 60px;
-    width: 100%;
-    padding-top: 1%;
-    padding-left: 3%;
-    padding-right: 1%;
-    background-color: rgb(201, 219, 228);
-}
+
 section h3 {
     color: white;
     width: 30%;
-}
-.user-form {
-    padding: 8px;
-    width: 15%;
-    border: 1px;
-    border-radius: 0;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.164);
-}
-.form-button {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 10%;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-}
-#footer {
-    position: fixed;
-    padding-top: 1%;
-    padding-left: 3%;
-    margin: 0;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    background:#6cf;
-}
-#footer .signup-center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#signupButtonSH {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 150px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
-}
-#signoutButtonSH {
-    margin: 0;
-    position: absolute;
-    top: 12.5%;
-    left: 90%;
-    transform: translate(-50%, -50%);
-}
-#signoutButtonSH {
-    padding: 8px;
-    border:none;
-    background-color:#3F51B5;
-    color:#fff;
-    font-weight:600;
-    border-radius:5px;
-    width: 150px;
-    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.274);
 }
 #expenseFilterSubmit {
     padding: 8px;
