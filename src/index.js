@@ -32,7 +32,8 @@ fetch(SELECTED_USER_URL)
     }
 })
 
-const userOptionSelector = () => {
+const userOptionSelector = (event) => {
+    event.preventDefault()
     let selection = document.getElementById('userPropSelect')
     for (const option of selection) {
         if (option.selected) {
@@ -52,25 +53,26 @@ const userOptionSelector = () => {
                 }
                 fetch(USER_SELECT_URL, configObj)
                 .then(response => response.json())
-                .then(obj => {
-                    createUserHeader(obj)
-                })
+                .then(obj => location.reload())
             }
         } 
     }
 }
 
-const clearUserInfor = () => {
-    fetch(USER_CLEAR_URL)
-    .then(response => response.json())
-    .then(obj => createUserHeader(obj))
-}
-
 const userSubmit = document.getElementById('userSubmit')
 userSubmit.addEventListener('click', userOptionSelector)
 
+const clearUserInfor = () => {
+    fetch(USER_CLEAR_URL)
+    .then(response => response.json())
+    .then(obj => obj)
+}
+
 const userClear = document.getElementById('userClear')
 userClear.addEventListener('click', clearUserInfor)
+
+
+
 
 const createIncome = (event) => {
     event.preventDefault()
